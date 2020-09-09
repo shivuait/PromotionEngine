@@ -9,5 +9,6 @@ namespace DomainModels.Entities
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public Decimal Total { get; set; }
+
     }
 }
