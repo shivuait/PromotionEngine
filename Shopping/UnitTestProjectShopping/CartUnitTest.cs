@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using DomainModels.Entities;
 using Repository.Abstraction;
 using Repository.Implementation;
 
