@@ -22,7 +22,7 @@ namespace Shopping
                 cart.AddCart(cmbProducts.SelectedIndex, cmbProducts.Text, int.Parse(txtPrice.Text), 1);
 
                 decimal total = 0;
-                //lblCount.Text = Convert.ToString(cart.calculateCart(out total));
+                lblCount.Text = Convert.ToString(cart.calculateCart(out total));
                 lblTotalPrice.Text = total.ToString();
             }
             catch(Exception er)
@@ -61,8 +61,8 @@ namespace Shopping
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
-           //var totalPrice= cart.CheckOut();
-           // MessageBox.Show("Total price is : " + totalPrice);
+            var totalPrice= cart.CheckOut();
+            MessageBox.Show("Total price is : " + totalPrice);
         }
 
        
