@@ -35,6 +35,15 @@ namespace UnitTestProjectShopping
             Assert.AreEqual(370, totalprice);
         }
 
-       
+        [TestMethod]
+        public void ScenarioC()
+        {
+            cart.AddCart(1, "A", 50, 3);
+            cart.AddCart(2, "B", 30, 5);
+            cart.AddCart(3, "C", 20, 1);
+            cart.AddCart(4, "D", 15, 1);
+            var totalprice = cart.CheckOut();
+            Assert.AreEqual(285, totalprice);
+        }
     }
 }
