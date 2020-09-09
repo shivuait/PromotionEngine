@@ -15,6 +15,16 @@ namespace UnitTestProjectShopping
         {
             cart = new CartRepository();
         }
-             
+        [TestMethod]
+        public void ScenarioA()
+        {
+            cart.AddCart(1, "A", 50, 1);
+            cart.AddCart(2, "B", 30, 1);
+            cart.AddCart(3, "C", 20, 1);
+            var totalprice=cart.CheckOut();
+            Assert.AreEqual(100, totalprice);
+        }
+
+       
     }
 }
