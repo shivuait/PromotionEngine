@@ -6,16 +6,22 @@ namespace Repository.Implementation
 {
     public class CartRepository : ICartRepository
     {
-        readonly Dictionary<int, CartItem> dicCart;
+        readonly Dictionary<int, CartItem> _dicCart;
 
         public CartRepository()
         {
-            dicCart = new Dictionary<int, CartItem>() { };
+            _dicCart = new Dictionary<int, CartItem>() { };
         }
-
+        /// <summary>
+        /// Add the Selected item to Cart with product Id, Name, UnitPrice and quantity
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="name"></param>
+        /// <param name="unitPrice"></param>
+        /// <param name="quantity"></param>
         public void AddCart(int productId, string name, int unitPrice, int quantity)
         {
-           if(!dicCart.ContainsKey(productId))
+            if (!_dicCart.ContainsKey(productId))
             {
                 var cartitem = new CartItem
                 {
@@ -24,20 +30,25 @@ namespace Repository.Implementation
                     UnitPrice = unitPrice,
                     Quantity = quantity
                 };
-                dicCart.Add(productId,cartitem);
+                _dicCart.Add(productId, cartitem);
             }
-           else
+            else
             {
-                var cart = dicCart[productId];
+                var cart = _dicCart[productId];
                 cart.Quantity = cart.Quantity + quantity;
             }
         }
-
-       public int calculateCart(out decimal price)
+        
+        /// <summary>
+        /// Calculate the price of the items in the cart
+        /// </summary>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        public int CalculateCart(out decimal price)
         {
             var count = 0;
             price = 0;
-            foreach (var item in dicCart)
+            foreach (var item in _dicCart)
             {
                 count += item.Value.Quantity;
                 price += item.Value.Total = CalculateDiscounts(item.Value);
@@ -45,6 +56,11 @@ namespace Repository.Implementation
             return count;
         }
 
+        /// <summary>
+        /// Applies Promotional discount
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
         private static decimal CalculateDiscounts(CartItem cart)
         {
             decimal price = 0;
@@ -64,18 +80,26 @@ namespace Repository.Implementation
             return price;
         }
 
+        /// <summary>
+        /// Check out the cart
+        /// </summary>
+        /// <returns></returns>
         public decimal CheckOut()
         {
             decimal total;
-            calculateCart(out total);
+            CalculateCart(out total);
             return total;
         }
 
+        /// <summary>
+        /// Delete items from the cart
+        /// </summary>
+        /// <param name="productId"></param>
         public void DeleteCart(int productId)
         {
-            if (dicCart.ContainsKey(productId))
+            if (_dicCart.ContainsKey(productId))
             {
-                dicCart.Remove(productId);
+                _dicCart.Remove(productId);
             }
         }
 

@@ -7,11 +7,11 @@ namespace Shopping
 {
     public partial class FrmShopping : Form
     {
-        ICartRepository cart;
+        ICartRepository _cart;
 
         public FrmShopping()
         {
-            cart = new CartRepository();
+            _cart = new CartRepository();
             InitializeComponent();
         }
 
@@ -19,10 +19,10 @@ namespace Shopping
         {
             try
             {
-                cart.AddCart(cmbProducts.SelectedIndex, cmbProducts.Text, int.Parse(txtPrice.Text), 1);
+                _cart.AddCart(cmbProducts.SelectedIndex, cmbProducts.Text, int.Parse(txtPrice.Text), 1);
 
                 decimal total = 0;
-                lblCount.Text = Convert.ToString(cart.calculateCart(out total));
+                lblCount.Text = Convert.ToString(_cart.CalculateCart(out total));
                 lblTotalPrice.Text = total.ToString();
             }
             catch(Exception er)
@@ -54,17 +54,15 @@ namespace Shopping
 
         private void btnClearCart_Click(object sender, EventArgs e)
         {
-            cart = new CartRepository();
-            lblCount.Text = "0";
-            lblTotalPrice.Text ="0";
+            _cart = new CartRepository();
+            lblCount.Text = @"0";
+            lblTotalPrice.Text =@"0";
         }
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
-            var totalPrice= cart.CheckOut();
-            MessageBox.Show("Total price is : " + totalPrice);
+            var totalPrice= _cart.CheckOut();
+            MessageBox.Show(@"Total price is : " + totalPrice,@"Checkout");
         }
-
-       
     }
 }
